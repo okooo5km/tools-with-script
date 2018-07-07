@@ -65,11 +65,9 @@ def format_md_file(md_file, if_new_path=True):
 
 
 if __name__ == '__main__':
-    # dir_path = os.path.join(os.path.expanduser('~'), 'Desktop/post')
-    # dir_path = os.path.join(os.path.expanduser('~'), 'Downloads/post')
-    dir_path = os.path.join(os.path.expanduser('~'), 'smslit_hugo/content/post')
+    dir_path = os.path.join(os.path.expanduser('~'), 'Downloads/post')
     for path in os.listdir(dir_path):
         file_path = os.path.join(dir_path, path)
         if os.path.isfile(file_path):
             if '.md' in file_path:
-                format_md_file(file_path, False)
+                format_md_file(file_path)
