@@ -1,0 +1,25 @@
+# img2ascii
+
+此脚本工具可以将图片转换为字符画。
+
+## 依赖
+
+需要安装第三方库 **pillow**：
+
+```sh
+$ pip3 install pillow
+```
+
+## 使用
+
+示例图片：
+
+![https://www.smslit.top/android-chrome-512x512.png](https://www.smslit.top/android-chrome-512x512.png)
+
+```
+$ ./img2ascii android-chrome-512x512.png -W 20 -H 20
+```
+
+得到 **output.txt**，内容对应的效果如下：
+
+![20180914153693707997013.png](http://p9fh104m8.bkt.clouddn.com/20180914153693707997013.png)
