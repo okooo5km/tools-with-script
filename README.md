@@ -13,3 +13,7 @@
 ## img2ascii
 
 [img2ascii](img2ascii/img2ascii) 是可以将图片转换为字符画的工具。
+
+## pin2chars
+
+[pin2chars](pin2chars/pin2chars) 是一个简单的验证码识别器
