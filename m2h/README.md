@@ -4,7 +4,7 @@
 
 ## 依赖
 
-需要安装第三方库 **pillow**：
+需要安装第三方库：
 
 ```sh
 $ pip3 install markdown beautifulsoup4 html5lib
