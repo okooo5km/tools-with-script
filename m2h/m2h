@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
+import os
 import argparse
-import os.path as op
 from markdown2html import Markdown2Html
 
 
@@ -22,13 +22,17 @@ if __name__ == '__main__':
         m2h.setStyle(args.style)
     for mdfile in args.infiles:
         if args.outdir:
-            filename = op.splitext(op.basename(mdfile))[0] + '.html'
-            outfile = op.join(args.outdir, filename)
+            if not os.path.exists(args.outdir):
+                print(f'新建目录 {args.outdir}')
+                os.makedirs(args.outdir)
+            filename = os.path.splitext(os.path.basename(mdfile))[0] + '.html'
+            outfile = os.path.join(args.outdir, filename)
             count = 1
-            while op.exists(outfile):
-                filename = op.splitext(op.basename(mdfile))[0] + f'_{count}.html'
-                outfile = op.join(args.outdir, filename)
+            while os.path.exists(outfile):
+                filename = os.path.splitext(os.path.basename(mdfile))[0] + f'_{count}.html'
+                outfile = os.path.join(args.outdir, filename)
                 count += 1
         else:
-            outfile = op.splitext(mdfile)[0] + '.html'
+            outfile = os.path.splitext(mdfile)[0] + '.html'
         m2h.convert(mdfile, outfile=outfile, prettify=True)
+        print(f'{mdfile} 已转换完成，保存为{outfile}')
