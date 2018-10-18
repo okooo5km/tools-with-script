@@ -6,47 +6,28 @@
 
 所需库：
 
-- pipenv
 - pytesseract
 - tesseract_ocr
 - pillow
 
-这里使用独立的python环境进行开发，用到了**pipenv**
-
-1. 首先安装 **pipenv**
-
-    ```sh
-    pip3 install pipenv
-    ```
-
-2. 为当前工程激活独立的python环境：
-
-    ```sh
-    pipenv install
-    ```
-
-3. 进入pipenv的独立环境：
-
-    ```sh
-    pipenv shell
-    ```
-
-    进入后会看到命令行每条命令输入前多了一部分信息，形如`(pin2chars-E2eD5P-4)`
-
-4. 在安装和使用库 **pytesseract** 和 **tesseract_ocr** 之前需要安装 **tesseract**：
+1. 在安装和使用库 **pytesseract** 和 **tesseract_ocr** 之前需要安装 **tesseract**：
 
     - macOS下：`brew install tesseract`
     - 其它系统，根据自己系统的包安装方法安装；
 
-5. 然后使用 `pip3` 安装库（库会安装在当前的激活环境中）：
+2. 安装库：
+
+    - 如果使用 pipenv 虚拟环境：
 
     ```sh
-    pip3 install pipenv pytesseract tesseract_ocr pillow
+    $ pipenv install pipenv pytesseract tesseract_ocr pillow
     ```
 
-### 提示
+    - 如果适用系统的环境，直接使用 pip 安装即可：
 
-使用独立的python环境是因为不想在系统的python环境中安装一些东西，这样做不会影响系统的开发环境，使用独立的环境会使工程更具独立性！
+    ```sh
+    $ pip3 install pipenv pytesseract tesseract_ocr pillow
+    ```
 
 ## 使用
 

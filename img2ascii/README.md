@@ -6,9 +6,17 @@
 
 需要安装第三方库 **pillow**：
 
-```sh
-$ pip3 install pillow
-```
+- 如果使用 pipenv 虚拟环境：
+
+    ```sh
+    $ pipenv pillow
+    ```
+
+- 如果适用系统的环境，直接使用 pip 安装即可：
+
+    ```sh
+    $ pip3 install pillow
+    ```
 
 ## 使用
 

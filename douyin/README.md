@@ -8,11 +8,17 @@
 - numpy
 - imageio
 
-可以使用 `pip3` 进行安装：
+- 如果使用 pipenv 虚拟环境：
 
-```sh
-pip3 install pillow numpy imageio
-```
+    ```sh
+    $ pipenv install pillow numpy imageio
+    ```
+
+- 如果适用系统的环境，直接使用 pip 安装即可：
+
+    ```sh
+    pip3 install pillow numpy imageio
+    ```
 
 ## 使用
 

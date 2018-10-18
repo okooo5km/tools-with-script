@@ -6,9 +6,17 @@
 
 需要安装第三方库：
 
-```sh
-$ pip3 install markdown beautifulsoup4 html5lib
-```
+- 如果使用 pipenv 虚拟环境：
+
+  ```sh
+  $ pipenv install markdown beautifulsoup4 html5lib
+  ```
+
+- 如果适用系统的环境，直接使用 pip 安装即可：
+
+  ```sh
+  $ pip3 install markdown beautifulsoup4 html5lib
+  ```
 
 ## 使用
 
