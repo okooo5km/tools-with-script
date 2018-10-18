@@ -20,13 +20,13 @@
     - 如果使用 pipenv 虚拟环境：
 
         ```sh
-        $ pipenv install pipenv pytesseract tesseract_ocr pillow
+        $ pipenv install pytesseract tesseract_ocr pillow
         ```
 
     - 如果适用系统的环境，直接使用 pip 安装即可：
 
         ```sh
-        $ pip3 install pipenv pytesseract tesseract_ocr pillow
+        $ pip3 install pytesseract tesseract_ocr pillow
         ```
 
 ## 使用
