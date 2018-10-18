@@ -45,7 +45,7 @@
 
 ### pin2chars
 
-[pin2chars](pin2chars/pin2chars) 是一个简单的验证码识别器
+[pin2chars](pin2chars/pin2chars) 是一个简单的验证码识别器。
 
 ### m2h
 
