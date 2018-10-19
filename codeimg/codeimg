@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+import os
+import argparse
+from messageimage import MessageImage
+
+
+def getargs():
+    parser = argparse.ArgumentParser(description="为图片写入隐藏信息，或者从包含隐藏信息的图片中获取信息。")
+    parser.add_argument('-i', '--info', help='指定要写入的隐藏信息，若指定会向图片写入信息，若不指定会尝试读取图片中的隐藏信息')
+    parser.add_argument('imgpath', help='指定要处理的图片')
+    return parser.parse_args()
+
+
+if __name__ == '__main__':
+    args = getargs()
+    mi = MessageImage(args.imgpath)
+    if args.info:
+        if mi.encode(args.info):
+            print('已写入隐藏信息！')
+    else:
+        print('解析到隐藏信息：', mi.decode())
