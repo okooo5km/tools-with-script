@@ -39,7 +39,7 @@ class MessageImage:
         self.__putdata(pkgbytes)
         if save:
             pathlist = os.path.splitext(self.imgpath)
-            newpath = pathlist[0] + '_code' + pathlist[1]
+            newpath = pathlist[0] + '_code' + '.png'
             print(newpath, end=' ')
             self.image.save(newpath)
         if show:
@@ -62,14 +62,6 @@ class MessageImage:
         size = self.image.size
         return int(size[0] * size[1] / 2)
 
-    def __even(self, image):
-        """
-        将图片中像素数据的 RGBA 值偶数化，即清零
-        """
-        pixels = list(image.getdata())
-        evenpixels = [(r>>1<<1,g>>1<<1,b>>1<<1,t>>1<<1) for [r,g,b,t] in pixels]
-        return evenpixels
-
     def __pack(self, info):
         """
         打包数据，转换为待写入图片的字节数据组，并返回
@@ -81,21 +73,20 @@ class MessageImage:
         return pkgbytes
 
     def __putdata(self, pkgbytes):
-        evenpixels = self.__even(self.image)
+        pixels = list(self.image.getdata())
         freespace = self.freespace()
         if len(pkgbytes) > freespace:  # 超出全部数据空间， 抛出异常
             raise Exception("错误: 不能载入超过 " + freespace + " 字节的数据到图片中。")
         for index, byte in enumerate(pkgbytes):
             _index = 2 * index
-            evenpixels[_index] = tuple([v + (((byte & 0x0F) >> i) & 0x01)  for i, v in enumerate(evenpixels[_index])])
+            pixels[_index] = tuple([(v & 0xFE) | (((byte & 0x0F) >> i) & 0x01)  for i, v in enumerate(pixels[_index])])
             _index += 1
-            evenpixels[_index] = tuple([v + (((byte >> 4) >> i) & 0x01)  for i, v in enumerate(evenpixels[_index])])
+            pixels[_index] = tuple([(v & 0xFE) | (((byte >> 4) >> i) & 0x01)  for i, v in enumerate(pixels[_index])])
         newimg = Image.new(self.image.mode, self.image.size)
-        newimg.putdata(evenpixels)
+        newimg.putdata(pixels)
         self.image = newimg
 
     def __getdata(self, start, stop):
-        start = (start - 1) if start % 2 else start
         pixels = list(self.image.getdata())
         pkgbytes = bytearray()
         for i in range(start, stop):
