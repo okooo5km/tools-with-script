@@ -52,6 +52,16 @@ class MessageImage:
             return None        
         return self.__unpack()
 
+    def freespace(self):
+        """
+        查看图片存储隐藏数据的可用空间，单位 byte
+        """
+        if self.image is None:
+            print('图片为空，请调用实例的 open 方法打开一张图片！')
+            return 0
+        size = self.image.size
+        return int(size[0] * size[1] / 2)
+
     def __even(self, image):
         """
         将图片中像素数据的 RGBA 值偶数化，即清零
@@ -72,8 +82,9 @@ class MessageImage:
 
     def __putdata(self, pkgbytes):
         evenpixels = self.__even(self.image)
-        if len(pkgbytes) * 2 > len(evenpixels):  # 超出全部数据空间， 抛出异常
-            raise Exception("错误: 不能载入超过 " + len(evenpixels) * 4 + " 位的数据到图片中。")
+        freespace = self.freespace()
+        if len(pkgbytes) > freespace:  # 超出全部数据空间， 抛出异常
+            raise Exception("错误: 不能载入超过 " + freespace + " 字节的数据到图片中。")
         for index, byte in enumerate(pkgbytes):
             _index = 2 * index
             evenpixels[_index] = tuple([v + (((byte & 0x0F) >> i) & 0x01)  for i, v in enumerate(evenpixels[_index])])
