@@ -7,7 +7,6 @@
     :license: MIT, see LICENSE for more details.
 """
 import os
-import sys
 import argparse
 import itertools
 
@@ -36,7 +35,7 @@ def getkeyslist(minlength, maxlength, choices='0123456789'):
         choices = '0123456789'
     keyslist = []
     for i in range(minlength, maxlength + 1):
-        keyiter = list(itertools.product(choices, repeat=i))
+        keyiter = itertools.product(choices, repeat=i)
         keys = [''.join(c)+'\n' for c in keyiter]
         keyslist.append(keys)
     print(f'[+] 已生成 {minlength} ~ {maxlength} 位密码字典 [+]')
