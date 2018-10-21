@@ -1,6 +1,10 @@
-'''
-定义类 Markdown2Html
-'''
+# -*- coding: utf-8 -*-
+"""
+    :author: 5km (十里)
+    :url: https://www.smslit.top
+    :copyright: © 2018 5km <5km@smslit.cn>
+    :license: MIT, see LICENSE for more details.
+"""
 import markdown
 import os.path as op
 from bs4 import BeautifulSoup

@@ -1,6 +1,13 @@
 #!/usr/local/bin/python3
-from PIL import Image
+# -*- coding: utf-8 -*-
+"""
+    :author: 5km (十里)
+    :url: https://www.smslit.top
+    :copyright: © 2018 5km <5km@smslit.cn>
+    :license: MIT, see LICENSE for more details.
+"""
 import argparse
+from PIL import Image
 
 
 parser = argparse.ArgumentParser(description='此工具可以将图片转换为字符画。')

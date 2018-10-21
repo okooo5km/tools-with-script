@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+    :author: 5km (十里)
+    :url: https://www.smslit.top
+    :copyright: © 2018 5km <5km@smslit.cn>
+    :license: MIT, see LICENSE for more details.
+"""
 import os
 from PIL import Image
 
