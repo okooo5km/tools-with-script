@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+"""
+    :author: 5km (十里)
+    :url: https://www.smslit.top
+    :copyright: © 2018 5km <5km@smslit.cn>
+    :license: MIT, see LICENSE for more details.
+"""
+import zipfile
+import argparse
+
+
+def getargs():
+    """ 获取命令行参数
+    Return:
+        返回命令行参数解析结果
+    """
+    parser = argparse.ArgumentParser(description='暴力破解 zip 文件的密码')
+    parser.add_argument('zfile', help='指明要破解的 zip 文件，可以是多个')
+    parser.add_argument('dict', help='指定使用的密码词典')
+    return parser.parse_args()
+
+
+def is_encrypted(zipFile):
+    """检查 zip 文件是否加密
+    Args:
+        zipFile: 待解压 zip 实例
+    """
+    for info in zipFile.infolist():
+        if info.flag_bits & 0x01:
+            return True
+        else:
+            return False
+
+
+def crackzipfile(zipFile, password):
+    """尝试破解 zip 文件
+    Args:
+        zipFile: 待解压 zip 实例
+        password: 密码
+    Return:
+        如果破解解压成功返回 True，如果出现异常返回 False，说明密码错误
+    """
+    try:
+        zipFile.extractall(pwd=password.encode('utf8'))
+        return password
+    except:
+        return
+
+
+def main():
+    args = getargs()
+    with zipfile.ZipFile(args.zfile) as zFile:
+        if not is_encrypted(zFile):
+            print(f'{args.zfile} 未加密！')
+            exit(0)
+        with open(args.dict, 'r') as f:
+            for line in f.readlines():
+                key = line.strip('\n')
+                password = crackzipfile(zFile, key)
+                if password:
+                    print(f'[+] 密码是 {password} [+]')
+                    exit(0)
+
+
+if __name__ == '__main__':
+    main()
