@@ -2,6 +2,8 @@
 
 此脚本工具可以将图片转换为字符画。
 
+详情参考：[python3实现图片转换为字符画](https://www.smslit.top/2018/09/14/image2charspic/)
+
 ## 依赖
 
 需要安装第三方库 **pillow**：

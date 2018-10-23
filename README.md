@@ -65,4 +65,4 @@
 
 ### crackzip
 
-[crackzip](crackzip/crackzip) 是一个密码字典生成器。
+[crackzip](crackzip/crackzip) 是一个破解 zip 文件密码的工具。

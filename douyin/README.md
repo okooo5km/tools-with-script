@@ -2,6 +2,8 @@
 
 使用python3为图片添加抖音效果，生成动态的抖音效果图。
 
+详情参考：[python实现图片的抖音效果](https://www.smslit.top/2018/07/04/python-practice-douyin/)
+
 ## 依赖
 
 - pillow
@@ -27,7 +29,3 @@
 ```sh
 python3 douyin.py
 ```
-
-## 思路
-
-[python实现图片的抖音效果](https://www.smslit.top/2018/07/04/python-practice-douyin/)

@@ -2,6 +2,8 @@
 
 破解 zip 文件密码的工具。
 
+详情参考：[zip 文件暴破](https://www.smslit.top/2018/10/23/crack-zip-hacker/)
+
 ## 库
 
 使用 python 内建库 `zipfile`

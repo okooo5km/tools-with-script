@@ -1,6 +1,8 @@
 # m2h
 
-一个将 markdown 文件转换为 html 文件的工具
+一个将 markdown 文件转换为 html 文件的工具。
+
+详情参考：[python3 实现Markdown转html小工具](https://www.smslit.top/2018/10/16/md2html_python/)
 
 ## 依赖
 
