@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+    :author: 5km (十里)
+    :url: https://www.smslit.top
+    :copyright: © 2018 5km <5km@smslit.cn>
+    :license: MIT, see LICENSE for more details.
+"""
+
+import sys
+import argparse
+
+
+def getargs():
+    """获取命令参数
+    """
+    parser = argparse.ArgumentParser(description="The tee utility copies standard \
+                                                input to standard output, making a \
+                                                copy in zero or more files.  The \
+                                                output is unbuffered.")
+    parser.add_argument('-v', '--version', action='version', version="v 1.0.0")
+    parser.add_argument('-a', '--append', action="store_true", default=False, help='Append the output to the files rather than overwriting them.')
+    parser.add_argument('file', nargs='*', help='A pathname of an output file.')
+    return parser.parse_args()
+
+
+if __name__ == '__main__':
+    args = getargs()
+    filemode = 'a' if args.append else 'w'
+    while True:
+        line = sys.stdin.readline()
+        sys.stdout.write(line)
+        for file in args.file:
+            with open(file, filemode) as f:
+                f.write(line)
+        if filemode is 'w':
+            filemode = 'a'

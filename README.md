@@ -66,3 +66,7 @@
 ### crackzip
 
 [crackzip](crackzip/crackzip) 是一个破解 zip 文件密码的工具。
+
+### tee
+
+[tee](tee/tee) 是python实现的 tee 命令。
