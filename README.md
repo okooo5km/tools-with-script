@@ -70,3 +70,7 @@
 ### tee
 
 [tee](tee/tee) 是python实现的 tee 命令。
+
+### encoding
+
+[encoding](encoding/encoding) 是一个文件编码检测和转换工具。
