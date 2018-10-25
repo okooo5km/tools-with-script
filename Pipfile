@@ -13,6 +13,7 @@ pillow = "*"
 markdown = "*"
 xlwt = "*"
 "beautifulsoup4" = "*"
+chardet = "*"
 
 [dev-packages]
 pylint = "*"
