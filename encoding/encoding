@@ -68,9 +68,11 @@ if __name__ == '__main__':
             if args.encoding == encoding:
                 print(f'[*] {file} 已经是 {encoding} 编码了，无需转换！[*]')
                 continue
-            with open(file, 'r', encoding=encoding, errors='replace') as f:
-                text = f.read()
+            f = open(file, 'r', encoding=encoding, errors='replace')
+            text = f.read()
+            f.close()
             outpath = os.path.join(args.outdir, file) if args.outdir else file
-            with open(outpath, 'w', encoding=args.encoding, errors='replace') as f:
-                f.write(text)
+            f = open(outpath, 'w', encoding=args.encoding, errors='replace')
+            f.write(text)
+            f.close()
             print(f'[+] 转码成功: {file}({encoding}) -> {outpath}({args.encoding}) [+]')
