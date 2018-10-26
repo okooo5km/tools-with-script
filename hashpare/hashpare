@@ -1,0 +1,77 @@
+#!/usr/bin/env python3
+"""
+    :author: 5km (十里)
+    :url: https://www.smslit.top
+    :copyright: © 2018 5km <5km@smslit.cn>
+    :license: MIT, see LICENSE for more details.
+"""
+import os
+import hashlib
+import argparse
+
+
+def calculate_hashvalue(file, algorithm='sha1'):
+    """计算文件校验值，可选校验算法 sha1 或 md5
+    """
+    if algorithm not in ['sha1', 'md5']:
+        print(f'[-] 不支持校验算法: {algorithm} [-]')
+        return (algorithm, None)
+    hashobj = hashlib.sha1() if algorithm == 'sha1' else hashlib.md5()
+    with open(file, 'rb') as f:
+        hashobj.update(f.read())
+    return algorithm, hashobj.hexdigest()
+
+
+def check_hash(args):
+    args.file = os.path.abspath(args.file)
+    algorithm, hashvalue = calculate_hashvalue(args.file, args.algorithm)
+    print(f'\n    {args.file}\n    {algorithm}: {hashvalue}')
+    result = '一致' if hashvalue == args.hash else '不一致'
+    print(f'\n    文件校验码与 {args.hash} {result}\n')
+
+
+def compare_hash(args):
+    print()
+    hashvalue = [None, None]
+    for i, filepath in enumerate(args.file):
+        filepath = os.path.abspath(filepath)
+        algorithm, hashvalue[i] = calculate_hashvalue(filepath, args.algorithm)
+        print(f'    name: {filepath}\n    {algorithm}: {hashvalue[i]}\n')
+    result = '一致' if hashvalue[0] == hashvalue[1] else '不一致'
+    print(f'    两文件内容{result}\n')
+
+
+
+def calculate_hash(args):
+    print()
+    for filepath in args.file:
+        filepath = os.path.abspath(filepath)
+        algorithm, hashvalue = calculate_hashvalue(filepath, args.algorithm)
+        print(f'    name: {filepath}\n    {algorithm}: {hashvalue}\n')
+
+
+def process_with_args():
+    """解析命令行参数
+    """
+    parser = argparse.ArgumentParser(description='计算文件校验，检查校验值，比较两个文件')
+    commands = parser.add_subparsers(help='子命令')
+    check = commands.add_parser('check', help='检查校验值命令')
+    check.add_argument('file', help='指明文件路径')
+    check.add_argument('hash', help='指定校验码')
+    check.add_argument('-a', '--algorithm', default='sha1', choices=['sha1', 'md5'], help='指定校验算法')
+    check.set_defaults(func=check_hash)
+    compare = commands.add_parser('compare', help='比较两个文件')
+    compare.add_argument('file', nargs=2, help='指定要比较的两个文件')
+    compare.add_argument('-a', '--algorithm', default='sha1', choices=['sha1', 'md5'], help='指定校验算法')
+    compare.set_defaults(func=compare_hash)
+    calculate = commands.add_parser('calculate', help='计算校验码')
+    calculate.add_argument('file', nargs='+', help='指定要计算校验的文件')
+    calculate.add_argument('-a', '--algorithm', default='sha1', choices=['sha1', 'md5'], help='指定校验算法')
+    calculate.set_defaults(func=calculate_hash)
+    return parser.parse_args()
+
+
+if __name__ == '__main__':
+    args = process_with_args()
+    args.func(args)
+    

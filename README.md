@@ -74,3 +74,7 @@
 ### encoding
 
 [encoding](encoding/encoding) 是一个文件编码检测和转换工具。
+
+### hashpare
+
+[hashpare](hashpare/hashpare) 是一个文件校验工具，也可以通过校验比较两文件。
