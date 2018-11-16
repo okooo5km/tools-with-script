@@ -14,9 +14,10 @@ markdown = "*"
 xlwt = "*"
 "beautifulsoup4" = "*"
 chardet = "*"
+flake8 = "*"
 
 [dev-packages]
-pylint = "*"
+yapf = "*"
 
 [requires]
 python_version = "3.7"
