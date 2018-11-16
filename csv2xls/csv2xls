@@ -7,8 +7,6 @@
     :license: MIT, see LICENSE for more details.
 """
 import os
-import csv
-import sys
 import xlwt
 import argparse
 import os.path as op
@@ -18,8 +16,10 @@ def getArgs():
     '''
     获取命令参数
     '''
-    parser = argparse.ArgumentParser(description='转换 csv 文件为 xls 文件，或转换指定目录下的所有 csv 文件')
-    parser.add_argument('paths', nargs='+', help='指定一个或多个路径，可以是csv文件，也可以是一个目录的路径')
+    parser = argparse.ArgumentParser(
+        description='转换 csv 文件为 xls 文件，或转换指定目录下的所有 csv 文件')
+    parser.add_argument(
+        'paths', nargs='+', help='指定一个或多个路径，可以是csv文件，也可以是一个目录的路径')
     return parser.parse_args()
 
 
@@ -29,19 +29,19 @@ def csv2xls_singlefile(filePath):
     '''
     excel_filename = str(filePath.split(".")[0]) + ".xls"
     print('converting %s to %s ...' % (filePath, excel_filename), end=', ')
-    myexcel = xlwt.Workbook(encoding = 'utf-8')
+    myexcel = xlwt.Workbook(encoding='utf-8')
     mysheet = myexcel.add_sheet("sheet1")
-    csvfile = open(filePath,"r")
+    csvfile = open(filePath, "r")
     csvLines = csvfile.readlines()
     csvfile.close()
-    l = 0
+    linenum = 0
     for csvLine in csvLines:
         r = 0
         cellList = csvLine.split(",")
         for i in cellList:
-            mysheet.write(l, r, i)
-            r = r + 1
-        l = l + 1
+            mysheet.write(linenum, r, i)
+            r += 1
+        linenum += 1
     myexcel.save(excel_filename)
     print('Done!')
     return excel_filename
@@ -49,7 +49,7 @@ def csv2xls_singlefile(filePath):
 
 if __name__ == '__main__':
     args = getArgs()
-    for path in paths:
+    for path in args.paths:
         csvFileList = []
         if op.isfile(path):
             if '.csv' in path:
@@ -69,4 +69,3 @@ if __name__ == '__main__':
             else:
                 for csvFile in csvFileList:
                     csv2xls_singlefile(csvFile)
-

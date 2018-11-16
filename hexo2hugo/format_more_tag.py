@@ -9,6 +9,7 @@
 import os
 import sys
 
+
 def parse_sys_args():
     args = sys.argv
     if len(args) != 2:
@@ -17,6 +18,7 @@ def parse_sys_args():
     else:
         if os.path.isdir(args[1]):
             return args[1]
+
 
 def format_more_split(path):
     with open(path, 'r') as mdfile:
@@ -27,13 +29,14 @@ def format_more_split(path):
             index = lines.index(line)
             lines[index] = '<!--more-->\n'
             has_more = True
-            break;
+            break
     if has_more:
         with open(path, 'w') as mdfile:
             mdfile.writelines(lines)
         print(f'{path} Done!')
     else:
         print(f'{path} has no split string!')
+
 
 if __name__ == '__main__':
     path = parse_sys_args()
@@ -46,4 +49,3 @@ if __name__ == '__main__':
     print(mdfiles)
     for f in mdfiles:
         format_more_split(f)
-

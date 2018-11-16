@@ -11,7 +11,6 @@ from bs4 import BeautifulSoup
 
 
 class Markdown2Html:
-
     def __init__(self, cssfile=None):
         '''
         初始化 Markdown2Html 类，可传入特定 css 文件作为样式
@@ -29,7 +28,9 @@ class Markdown2Html:
         else:
             with open(cssfile, 'r') as f:
                 css = f.read()
-                self.headTag = self.headTag[:-7] + f'<style  type="text/css">{css}</style>' + self.headTag[-7:]
+                self.headTag = self.headTag[:-7] \
+                    + f'<style  type="text/css">{css}</style>' \
+                    + self.headTag[-7:]
 
     def convert(self, infile, outfile=None, prettify=False):
         '''
@@ -45,7 +46,8 @@ class Markdown2Html:
         with open(infile, 'r', encoding='utf8') as f:
             markdownText = f.read()
 
-        rawhtml = self.headTag + markdown.markdown(markdownText, output_format='html5', extensions=['extra'])
+        rawhtml = self.headTag + markdown.markdown(
+            markdownText, output_format='html5', extensions=['extra'])
 
         if prettify:
             prettyHtml = BeautifulSoup(rawhtml, 'html5lib').prettify()

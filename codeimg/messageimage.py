@@ -35,7 +35,7 @@ class MessageImage:
         try:
             self.image = Image.open(imgpath).convert('RGBA')
             self.imgpath = imgpath
-        except:
+        except Exception:
             self.image = None
 
     def encode(self, info, save=True, show=False):
@@ -56,7 +56,7 @@ class MessageImage:
     def decode(self):
         if self.image is None:
             print('图片为空，请调用实例的 open 方法打开一张图片！')
-            return None        
+            return None
         return self.__unpack()
 
     def freespace(self):
@@ -86,9 +86,11 @@ class MessageImage:
             raise Exception("错误: 不能载入超过 " + freespace + " 字节的数据到图片中。")
         for index, byte in enumerate(pkgbytes):
             _index = 2 * index
-            pixels[_index] = tuple([(v & 0xFE) | (((byte & 0x0F) >> i) & 0x01)  for i, v in enumerate(pixels[_index])])
+            pixels[_index] = tuple([(v & 0xFE) | (((byte & 0x0F) >> i) & 0x01)
+                                    for i, v in enumerate(pixels[_index])])
             _index += 1
-            pixels[_index] = tuple([(v & 0xFE) | (((byte >> 4) >> i) & 0x01)  for i, v in enumerate(pixels[_index])])
+            pixels[_index] = tuple([(v & 0xFE) | (((byte >> 4) >> i) & 0x01)
+                                    for i, v in enumerate(pixels[_index])])
         newimg = Image.new(self.image.mode, self.image.size)
         newimg.putdata(pixels)
         self.image = newimg
@@ -102,7 +104,7 @@ class MessageImage:
             (r, g, b, a) = tuple([v & 0x01 for v in pixels[2 * i + 1]])
             v |= (r << 4) | (g << 5) | (b << 6) | (a << 7)
             pkgbytes.append(v.to_bytes(4, 'little')[0])
-        return pkgbytes  
+        return pkgbytes
 
     def __unpack(self):
         pkgbytes = self.__getdata(0, 8)

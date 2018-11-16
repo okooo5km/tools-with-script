@@ -11,8 +11,15 @@ from messageimage import MessageImage
 
 
 def getargs():
-    parser = argparse.ArgumentParser(description="为图片写入隐藏信息，或者从包含隐藏信息的图片中获取信息。")
-    parser.add_argument('command', choices=['encode', 'decode', 'check'], help='指定子命令。encode -> 往图片中写入隐藏信息；decode -> 读取图片中的隐藏信息；check -> 查看图片可存空间(单位 byte)')
+    parser = argparse.ArgumentParser(
+        description="为图片写入隐藏信息，或者从包含隐藏信息的图片中获取信息。")
+    parser.add_argument(
+        'command',
+        choices=['encode', 'decode', 'check'],
+        help="""指定子命令。encode -> 往图片中写入隐藏信息；
+decode -> 读取图片中的隐藏信息；
+check -> 查看图片可存空间(单位 byte)"""
+    )
     parser.add_argument('-i', '--info', help='指定要写入的隐藏信息，子命令为 encode 时有效')
     parser.add_argument('imgpath', help='指定要处理的图片')
     return parser.parse_args()
@@ -25,7 +32,7 @@ if __name__ == '__main__':
         if args.info is None:
             args.info = input('请输入要隐藏的信息：')
         if mi.encode(args.info):
-                print('已写入隐藏信息！')
+            print('已写入隐藏信息！')
     elif args.command == 'decode':
         print(f'解析到隐藏信息：{mi.decode()}')
     elif args.command == 'check':

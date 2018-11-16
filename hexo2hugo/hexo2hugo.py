@@ -10,6 +10,7 @@ import os
 
 DIR_PATH = '.'
 
+
 def format_md_file(md_file, if_new_path=True):
     ''' 按照hugo头信息格式格式化md文件头
     :param md_file: md文件
@@ -37,32 +38,32 @@ def format_md_file(md_file, if_new_path=True):
                 head_begin = True
         else:
             if '---' in line:
-                new_head += line            
+                new_head += line
                 break
             else:
-                if 'layout:' in line: 
+                if 'layout:' in line:
                     line = ''
                 elif 'author:' in line:
                     line = ''
                 elif 'tags:' in line:
                     tag_line = line[:-1].split(':')
-                    if (not '[' in line) and (tag_line[1].strip() != ''):
+                    if ('[' not in line) and (tag_line[1].strip() != ''):
                         tags = f'[{tag_line[1]}]'
                         line = tag_line[0] + ': ' + tags + '\n'
                 elif 'categories:' in line:
                     tag_line = line[:-1].split(':')
-                    if (not '[' in line) and (tag_line[1].strip() != ''):
+                    if ('[' not in line) and (tag_line[1].strip() != ''):
                         tags = f'[{tag_line[1]}]'
                         line = tag_line[0] + ': ' + tags + '\n'
                 elif 'date:' in line:
                     date_time = line[:-1].replace('date:', '').strip()
-                    if not '+08:00' in date_time:
+                    if '+08:00' not in date_time:
                         if '+0800' in date_time:
                             date_time = date_time.replace('+0800', '+08:00')
                             line = f'date: {date_time}\n'
                         else:
                             line = f'date: {date_time} +08:00\n'
-        new_head += line            
+        new_head += line
     print(old_head, '\n\t|\n\tv\n', new_head)
     lines2.insert(0, new_head)
     with open(new_path if if_new_path else md_file, 'w') as f:

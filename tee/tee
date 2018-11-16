@@ -14,13 +14,20 @@ import argparse
 def getargs():
     """获取命令参数
     """
-    parser = argparse.ArgumentParser(description="The tee utility copies standard \
-                                                input to standard output, making a \
-                                                copy in zero or more files.  The \
-                                                output is unbuffered.")
+    parser = argparse.ArgumentParser(
+        description="""The tee utility copies standard
+input to standard output, making a
+ copy in zero or more files.  The
+ output is unbuffered.""")
     parser.add_argument('-v', '--version', action='version', version="v 1.0.0")
-    parser.add_argument('-a', '--append', action="store_true", default=False, help='Append the output to the files rather than overwriting them.')
-    parser.add_argument('file', nargs='*', help='A pathname of an output file.')
+    parser.add_argument(
+        '-a',
+        '--append',
+        action="store_true",
+        default=False,
+        help='Append the output to the files rather than overwriting them.')
+    parser.add_argument(
+        'file', nargs='*', help='A pathname of an output file.')
     return parser.parse_args()
 
 

@@ -18,7 +18,15 @@ def get_args():
     '''得到命令参数
     '''
     parser = argparse.ArgumentParser()
-    parser.add_argument('-m', "--method", type=int, choices=[0, 1, 2], help='选择方法进行验证码的识别:  0. 使用 pin_cracker 库方法识别验证码; 1. 使用 pytesseract 库方法识别验证码; 2. 使用 tesseract_ocr 库方法识别验证码;')
+    parser.add_argument(
+        '-m',
+        "--method",
+        type=int,
+        choices=[0, 1, 2],
+        help="""选择方法进行验证码的识别:
+0. 使用 pin_cracker 库方法识别验证码;
+1. 使用 pytesseract 库方法识别验证码;
+2. 使用 tesseract_ocr 库方法识别验证码;""")
     parser.add_argument("imgfile", help='指定要识别的验证码图片')
 
     return parser.parse_args()
@@ -27,20 +35,17 @@ def get_args():
 def init_methods():
     '''初始化方法列表
     '''
-    methods = [
-        {
-            'method': pin_cracker.image_to_string,
-            'tip': 'pin_cracker 库的识别结果：'
-        },
-        {
-            'method': pytesseract.image_to_string,
-            'tip': 'pytesseract 库的识别结果：'
-        },
-        {
-            'method': tesseract_ocr.text_for_filename,
-            'tip': 'tesseract_ocr 库的识别结果：'
-        }
-    ]
+    methods = [{
+        'method': pin_cracker.image_to_string,
+        'tip': 'pin_cracker 库的识别结果：'
+    }, {
+        'method': pytesseract.image_to_string,
+        'tip': 'pytesseract 库的识别结果：'
+    },
+               {
+                   'method': tesseract_ocr.text_for_filename,
+                   'tip': 'tesseract_ocr 库的识别结果：'
+               }]
 
     return methods
 
@@ -49,10 +54,11 @@ if __name__ == '__main__':
     args = get_args()
     methods = init_methods()
     if os.path.isfile(args.imgfile):
-        if '.gif' in args.imgfile: # 避免 tesseract 读取 gif 图片出问题
+        if '.gif' in args.imgfile:  # 避免 tesseract 读取 gif 图片出问题
             filename = 'b_code.png'
             Image.open(args.imgfile).convert('P').save(filename)
             args.imgfile = filename
-        print(methods[args.method]['tip'], methods[args.method]['method'](args.imgfile))
+        print(methods[args.method]['tip'],
+              methods[args.method]['method'](args.imgfile))
     else:
         print('请给定有效图片路径！')

@@ -13,6 +13,7 @@ from PIL import Image
 
 PIC_PATH = 'glasses.jpg'
 
+
 def convert_douyin_image(pic_path, offset=10):
     '''为普通图片添加红蓝溢出位移效果，抖音app效果
     :param pic_path: 图片路径
@@ -31,11 +32,14 @@ def convert_douyin_image(pic_path, offset=10):
             img_gb = np.copy(img_array)
             img_r[:-offset, :-offset, 1:3] = 0
             img_gb[offset:, offset:, 0] = 0
-            img_array[:-offset, :-offset, :] = img_r[:-offset, :-offset, :] + img_gb[offset:, offset:, :]
+            img_array[:-offset, :
+                      -offset, :] = img_r[:-offset, :-offset, :] + img_gb[
+                          offset:, offset:, :]
         image = Image.fromarray(img_array)
         image.save(pic_path_new)
         print(f'Saved {pic_path_new}!')
         return pic_path_new
+
 
 def create_gif(image_list, gif_name):
     '''创建gif图片
@@ -48,7 +52,7 @@ def create_gif(image_list, gif_name):
     frames = []
     for image_name in image_list:
         frames.append(imageio.imread(image_name))
-    imageio.mimsave(gif_name, frames, 'GIF', duration = 0.05)
+    imageio.mimsave(gif_name, frames, 'GIF', duration=0.05)
     print(f'Saved {gif_name}!')
 
 
@@ -64,4 +68,3 @@ if __name__ == '__main__':
     p_name, p_ext = os.path.splitext(PIC_PATH)
     gif_name = PIC_PATH.replace(p_ext, '.gif')
     create_gif(pic_list, gif_name)
-    

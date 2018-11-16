@@ -36,7 +36,8 @@ if __name__ == '__main__':
             outfile = os.path.join(args.outdir, filename)
             count = 1
             while os.path.exists(outfile):
-                filename = os.path.splitext(os.path.basename(mdfile))[0] + f'_{count}.html'
+                filename = os.path.splitext(
+                    os.path.basename(mdfile))[0] + f'_{count}.html'
                 outfile = os.path.join(args.outdir, filename)
                 count += 1
         else:

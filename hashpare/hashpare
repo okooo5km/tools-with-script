@@ -41,7 +41,6 @@ def compare_hash(args):
     print(f'    两文件内容{result}\n')
 
 
-
 def calculate_hash(args):
     print()
     for filepath in args.file:
@@ -58,15 +57,30 @@ def process_with_args():
     check = commands.add_parser('check', help='检查校验值命令')
     check.add_argument('file', help='指明文件路径')
     check.add_argument('hash', help='指定校验码')
-    check.add_argument('-a', '--algorithm', default='sha1', choices=['sha1', 'md5'], help='指定校验算法')
+    check.add_argument(
+        '-a',
+        '--algorithm',
+        default='sha1',
+        choices=['sha1', 'md5'],
+        help='指定校验算法')
     check.set_defaults(func=check_hash)
     compare = commands.add_parser('compare', help='比较两个文件')
     compare.add_argument('file', nargs=2, help='指定要比较的两个文件')
-    compare.add_argument('-a', '--algorithm', default='sha1', choices=['sha1', 'md5'], help='指定校验算法')
+    compare.add_argument(
+        '-a',
+        '--algorithm',
+        default='sha1',
+        choices=['sha1', 'md5'],
+        help='指定校验算法')
     compare.set_defaults(func=compare_hash)
     calculate = commands.add_parser('calculate', help='计算校验码')
     calculate.add_argument('file', nargs='+', help='指定要计算校验的文件')
-    calculate.add_argument('-a', '--algorithm', default='sha1', choices=['sha1', 'md5'], help='指定校验算法')
+    calculate.add_argument(
+        '-a',
+        '--algorithm',
+        default='sha1',
+        choices=['sha1', 'md5'],
+        help='指定校验算法')
     calculate.set_defaults(func=calculate_hash)
     return parser.parse_args()
 
@@ -74,4 +88,3 @@ def process_with_args():
 if __name__ == '__main__':
     args = process_with_args()
     args.func(args)
-    

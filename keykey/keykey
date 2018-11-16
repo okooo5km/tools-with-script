@@ -18,7 +18,11 @@ def getargs():
     parser.add_argument('minlength', type=int, help='用于指定生成密码的最小位数')
     parser.add_argument('maxlength', type=int, help='用于指定生成密码的最大位数')
     parser.add_argument('-o', '--outfile', help='指定字典文件的保存路径')
-    parser.add_argument('-c', '--choices', default='0123456789', help='指定字符串，密码中的字符从字符串中选择，默认为 "0123456789"')
+    parser.add_argument(
+        '-c',
+        '--choices',
+        default='0123456789',
+        help='指定字符串，密码中的字符从字符串中选择，默认为 "0123456789"')
     return parser.parse_args()
 
 
@@ -36,7 +40,7 @@ def getkeyslist(minlength, maxlength, choices='0123456789'):
     keyslist = []
     for i in range(minlength, maxlength + 1):
         keyiter = itertools.product(choices, repeat=i)
-        keys = [''.join(c)+'\n' for c in keyiter]
+        keys = [''.join(c) + '\n' for c in keyiter]
         keyslist.append(keys)
     print(f'[+] 已生成 {minlength} ~ {maxlength} 位密码字典 [+]')
     return keyslist
@@ -57,7 +61,7 @@ def save_keys_dict(keyslist, outfile):
         for keys in keyslist:
             f.writelines(keys)
     print(f'[+] 已保存密码字典到 {outfile} [+]')
-        
+
 
 if __name__ == '__main__':
     args = getargs()
