@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+
+import os
+import requests
+import argparse
+from urllib.parse import urlparse
+
+
+def get_args():
+    parser = argparse.ArgumentParser(description='批量下载七牛云中的文件')
+    parser.add_argument('domain', help='指定七牛 bucket 的CDN域名')
+    parser.add_argument('infile', help='指定七牛 bucket 中的文件列表文件')
+    parser.add_argument(
+        '-o',
+        '--outdir',
+        default='qiniu',
+        help='指定要新建的目录，用于存储文件，最终存储目录为 ~/Downloads/[outdir]')
+    return parser.parse_args()
+
+
+def download_file(url, savedir='.'):
+    """download file from a url
+    :param url: the file url
+    :type url: str
+    :param savedir: the dir where file saved, defaults to '.'
+    :param savedir: str, optional
+    """
+    print(f'Downloading {url} ...')
+    req = requests.get(url)
+
+    if req.status_code == 404:
+        print(f'\t[-] Failed! File ({url}) does not exist! [-]')
+        return
+
+    url_info = urlparse(url)
+    path_info = os.path.split(url_info.path)
+    if path_info[0] == '/':
+        file_name = os.path.join(savedir, path_info[1])
+    else:
+        dir_path = os.path.join(savedir, path_info[0][1:])
+        if not os.path.exists(dir_path):
+            print(f'\t[+] make dirs - {dir_path} [+]')
+            os.makedirs(dir_path)
+        file_name = os.path.join(savedir, url_info.path[1:])
+
+    with open(file_name, 'wb') as fobj:
+        fobj.write(req.content)
+    print(f"\t[+] Done! Saved as {file_name} [+]")
+
+
+if __name__ == '__main__':
+    args = get_args()
+    homedir = os.path.expanduser('~')
+    savedir = os.path.join(homedir, f'Downloads/{args.outdir}')
+    if not os.path.exists(savedir):
+        os.makedirs(savedir)
+        print(f'Make a new dir [{savedir}]')
+
+    with open(args.infile, 'r') as fobj:
+        for line in fobj.readlines():
+            line = line.strip()
+            url = f'http://{args.domain}/{line}'
+            download_file(url, savedir)

@@ -78,3 +78,7 @@
 ### hashpare
 
 [hashpare](hashpare/hashpare) 是一个文件校验工具，也可以通过校验比较两文件。
+
+### qdownload
+
+[qdownload](qdownload/qdownload) 是批量下载七牛云文件的工具。
