@@ -26,7 +26,7 @@ usage: qdownload [-h] [-o OUTDIR] domain infile
 
 positional arguments:
   domain                指定七牛 bucket 的CDN域名
-  infile                指定七牛 bucket 中文件对应的列表文件
+  infile                指定七牛 bucket 中的文件列表文件
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -54,9 +54,9 @@ optional arguments:
         ./qshell account <AK> <SK> <username>
         ```
 
-        - <AK> 是 app key （个人中心->密钥管理中查看）
-        - <SK> 是 secret key （个人中心->密钥管理中查看）
-        - <username> 是你的七牛账户名
+        - `<AK>` 是 app key （个人中心->密钥管理中查看）
+        - `<SK>` 是 secret key （个人中心->密钥管理中查看）
+        - `<username>` 是你的七牛账户名
 
     - 获取文件详细列表：
 
@@ -64,7 +64,7 @@ optional arguments:
         ./qshell listbucket <bucket> > filelist.txt
         ```
 
-        - <bucket> 是要操作的对象空间的名称
+        - `<bucket>` 是要操作的对象空间的名称
 
     - 切分出文件名称的列表：
 
