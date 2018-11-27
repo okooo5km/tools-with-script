@@ -2,6 +2,7 @@
 import re
 import socket
 import argparse
+import select
 
 
 def get_args():
@@ -82,31 +83,28 @@ def main():
     print(f"{args.site} 的 http 服务已开启")
     print(f"访问地址: http://127.0.0.1:{args.port}")
 
-    client_socket_list = list()
+    # 创建 epoll
+    epo = select.epoll()
+    epo.register(tcp_socket.fileno(), select.EPOLLIN)
+
+    client_socket_dict = dict()
 
     while True:
-        try:
-            # 等待
-            client_socket, client_addr = tcp_socket.accept()
-        except Exception as e:
-            pass
-        else:
-            client_socket.setblocking(False)
-            client_socket_list.append(client_socket)
-
-        for client_socket in client_socket_list:
-            try:
-                request = client_socket.recv(1024)
-            except Exception as e:
-                pass
-            else:
+        fd_event_list = epo.poll()
+        for fd, event in fd_event_list:
+            if fd == tcp_socket.fileno():
+                client_socket, _ = tcp_socket.accept()
+                epo.register(client_socket.fileno(), select.EPOLLIN)
+                client_socket_dict[client_socket.fileno()] = client_socket
+            elif event == select.EPOLLIN:
+                request = client_socket_dict[fd].recv(1024)
                 if request:
-                    response_to(client_socket, request, args.site)
+                    response_to(client_socket_dict[fd], request, args.site)
                 else:
-                    client_socket.close()
-                    client_socket_list.remove(client_socket)
+                    client_socket_dict[fd].close()
+                    epo.unregister(fd)
+                    del client_socket_dict[fd]
 
-                # 关闭套接字
     tcp_socket.close()
 
 
