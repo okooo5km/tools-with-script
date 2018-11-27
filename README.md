@@ -82,3 +82,7 @@
 ### qdownload
 
 [qdownload](qdownload/qdownload) 是批量下载七牛云文件的工具。
+
+### simple_server
+
+[simple_server](simple_server/simple_server) 是一个单进程、单线程、非阻塞的支持 HTTP1.1 的静态服务器。

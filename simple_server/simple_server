@@ -1,0 +1,114 @@
+#!/usr/bin/env python3
+import re
+import socket
+import argparse
+
+
+def get_args():
+    """get_args"""
+    parser = argparse.ArgumentParser(description="开启指定网站服务")
+    parser.add_argument("-p", "--port", type=int, default=8080, help="指定网服务端口")
+    parser.add_argument("site", help="指定网站路径")
+    return parser.parse_args()
+
+
+def response_to(client_socket: socket.socket, request, site_path: str):
+    # 处理请求
+    req_str: str = request.decode("utf-8")
+    req_lines = req_str.splitlines()
+
+    ret = re.match(r"[^/]+([^(?| )]*)", req_lines[0])
+    file_name = ""
+    if ret:
+        file_name = ret.group(1)
+        if file_name.endswith("/"):
+            file_name += "index.html"
+        file_name = site_path + file_name
+        print("+" * 50 + "\n" + file_name + "\n" + "+" * 50)
+
+    try:
+        f_req = open(file_name, "rb")
+    except Exception:
+        # 生成响应
+        # 响应内容
+        response_body = "file is not available!"
+        # 响应头
+        response_header = "HTTP/1.1 404 NOT FOUND\r\n"
+        response_header += f"Content-Length:{len(response_body)}\r\n"
+        response_header += "\r\n"
+        response = (response_header + response_body).encode("utf-8")
+        # 发送响应
+        client_socket.send(response)
+        print("Not found!")
+
+    else:
+        html_content = f_req.read()
+        f_req.close()
+        # 生成响应
+        # 响应内容
+        response_body = html_content
+        # 响应头
+        response_header = "HTTP/1.1 200 OK\r\n"
+        response_header += f"Content-Length:{len(response_body)}\r\n"
+        response_header += "\r\n"
+        response = response_header.encode("utf-8") + response_body
+        # 发送响应
+        client_socket.send(response)
+
+    print(req_str)
+
+
+def main():
+    # 获取命令参数
+    args = get_args()
+    if args.site:
+        if args.site.endswith("/"):
+            args.site = args.site[:-1]
+    if args.port >= 65535:
+        args.port = 8080
+
+    # 创建套接字
+    tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # 保证服务器先关闭套接字时，重启程序可以立马重复使用上一次的配置端口
+    tcp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    tcp_socket.setblocking(False)
+
+    # 绑定套接字
+    tcp_socket.bind(("", args.port))
+
+    # 监听
+    tcp_socket.listen(128)
+    print(f"{args.site} 的 http 服务已开启")
+    print(f"访问地址: http://127.0.0.1:{args.port}")
+
+    client_socket_list = list()
+
+    while True:
+        try:
+            # 等待
+            client_socket, client_addr = tcp_socket.accept()
+        except Exception as e:
+            pass
+        else:
+            client_socket.setblocking(False)
+            client_socket_list.append(client_socket)
+
+        for client_socket in client_socket_list:
+            try:
+                request = client_socket.recv(1024)
+            except Exception as e:
+                pass
+            else:
+                if request:
+                    response_to(client_socket, request, args.site)
+                else:
+                    client_socket.close()
+                    client_socket_list.remove(client_socket)
+
+                # 关闭套接字
+    tcp_socket.close()
+
+
+if __name__ == "__main__":
+    main()
