@@ -86,3 +86,7 @@
 ### simple_server
 
 [simple_server](simple_server/simple_server) 是一个单进程、单线程、非阻塞的支持 HTTP1.1 的静态服务器。
+
+### textGO
+
+[textGO](textGO/textGO) 是利用百度 AI 免费的 OCR 服务进行图片中文字识别的工具。
