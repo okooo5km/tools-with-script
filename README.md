@@ -89,4 +89,4 @@
 
 ### textGO
 
-[textGO](textGO/textGO) 是利用百度 AI 免费的 OCR 服务进行图片中文字识别的工具。
+[textGO](textGO/textGO.py) 是利用百度 AI 免费的 OCR 服务进行图片中文字识别的工具。
