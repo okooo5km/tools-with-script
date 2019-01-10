@@ -71,6 +71,9 @@ class TextGO:
 
     def ocr(self, img):
         """ 利用百度 AI 识别文字 """
+        if self.access_token == "":
+            print("没有 access_token")
+            return ""
         url = f"https://aip.baidubce.com/rest/2.0/ocr/v1/accurate?access_token={self.access_token}"
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
         data = {
