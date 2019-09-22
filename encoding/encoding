@@ -69,8 +69,7 @@ if __name__ == '__main__':
             continue
         encoding, confidence = detcect_encoding(file)
         print(f'[+] {file}: 编码 -> {encoding} (置信度 {confidence}%) [+]')
-        if args.encoding and (encoding is not 'unknown') and (confidence >
-                                                              0.75):
+        if args.encoding and (encoding is not 'unknown') and (confidence > 75):
             if args.encoding == encoding:
                 print(f'[*] {file} 已经是 {encoding} 编码了，无需转换！[*]')
                 continue
