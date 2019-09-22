@@ -94,3 +94,7 @@
 ### stringsGO
 
 [stringsGO](stringsGO/stringsGO.py) 是一个帮助翻译 iOS 和 macOS app 的 xcode 工程中的 String 文件的工具。
+
+### imageassets
+
+[imageassets](imageassets/imageassets.py) 是一个生成苹果平台图标文件的工具。
