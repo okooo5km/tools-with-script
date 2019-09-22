@@ -90,3 +90,7 @@
 ### textGO
 
 [textGO](textGO/textGO.py) 是利用百度 AI 免费的 OCR 服务进行图片中文字识别的工具。
+
+### stringsGO
+
+[stringsGO](stringsGO/stringsGO.py) 是一个帮助翻译 iOS 和 macOS app 的 xcode 工程中的 String 文件的工具。
