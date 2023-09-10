@@ -2,7 +2,7 @@
 
 此脚本主要是转换markdown文章中头信息的格式，方便将hexo文章向hugo迁移，毕竟hugo是个神速渲染的静态博客工具。
 
-详情参考：[hexo博客迁移到hugo](https://www.smslit.top/2018/07/07/hexo2hugo/)
+详情参考：[hexo博客迁移到hugo](https://blog.5km.studio/2018/07/07/hexo2hugo/)
 
 ## 使用
 

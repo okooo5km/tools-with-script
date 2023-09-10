@@ -2,7 +2,7 @@
 
 此脚本工具可以将图片转换为字符画。
 
-详情参考：[python3实现图片转换为字符画](https://www.smslit.top/2018/09/14/image2charspic/)
+详情参考：[python3实现图片转换为字符画](https://blog.5km.studio/2018/09/14/image2charspic/)
 
 ## 依赖
 
@@ -24,7 +24,7 @@
 
 示例图片：
 
-![https://www.smslit.top/android-chrome-512x512.png](https://www.smslit.top/android-chrome-512x512.png)
+![https://blog.5km.studio/android-chrome-512x512.png](https://blog.5km.studio/android-chrome-512x512.png)
 
 ```
 $ ./img2ascii android-chrome-512x512.png -W 20 -H 20

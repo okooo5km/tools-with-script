@@ -2,7 +2,7 @@
 
 一个可以将信息隐写到图片中的工具，当然也可以从具有隐写信息的图片中获取信息。
 
-详情参考：[图中藏(cáng)语](https://www.smslit.top/2018/10/20/codeimg-python/)
+详情参考：[图中藏(cáng)语](https://blog.5km.studio/2018/10/20/codeimg-python/)
 
 ## 依赖
 
@@ -23,10 +23,10 @@
 ## 使用
 
 ```sh
-$ ./codeimg encode demo.png -i 'https://www.smslit.top'
+$ ./codeimg encode demo.png -i 'https://blog.5km.studio'
 demo_code.png 已写入隐藏信息！
 $ ./codeimg decode demo_code.png
-解析到隐藏信息：https://www.smslit.top
+解析到隐藏信息：https://blog.5km.studio
 $ ./codeimg check demo.png
 图片可用空间 381024 bytes
 $ ./codeimg -h

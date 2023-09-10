@@ -2,7 +2,7 @@
 
 python实现的 tee 命令。
 
-详情参考：[python 实现命令行工具 tee](https://www.smslit.top/2018/10/12/tee-Python/)
+详情参考：[python 实现命令行工具 tee](https://blog.5km.studio/2018/10/12/tee-Python/)
 
 使用方法:
 

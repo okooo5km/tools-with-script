@@ -2,7 +2,7 @@
 
 这是一个密码字典生成器。
 
-详情参考：[python3 生成密码字典](https://www.smslit.top/2018/10/21/unzip-dict-hacker/)
+详情参考：[python3 生成密码字典](https://blog.5km.studio/2018/10/21/unzip-dict-hacker/)
 
 使用方法：
 

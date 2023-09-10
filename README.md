@@ -27,7 +27,7 @@
 
 ### 提示
 
-使用独立的 python 环境是因为不想在系统的 python 环境中安装一些东西，这样做不会影响系统的开发环境，使用独立的环境会使工程更具独立性！关于 pipenv 的使用可以参考：[一起使用 pipenv](https://www.smslit.top/2018/10/18/pipenv/)
+使用独立的 python 环境是因为不想在系统的 python 环境中安装一些东西，这样做不会影响系统的开发环境，使用独立的环境会使工程更具独立性！关于 pipenv 的使用可以参考：[一起使用 pipenv](https://blog.5km.studio/2018/10/18/pipenv/)
 
 ## 工具集
 
